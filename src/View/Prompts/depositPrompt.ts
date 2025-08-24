@@ -7,6 +7,6 @@ export interface DepositInput {
 }
 
 export async function depositPrompt(): Promise<DepositInput> {
-  const deposit = await getValidInput(promptsBank.deposit, validateDeposit)as number;
+  const deposit = await getValidInput(promptsBank.Deposit, validateDeposit)as number;
   return { deposit };
 }

@@ -2,13 +2,9 @@ import { getValidInput } from "../../View/getValidInput";
 import { promptsBank } from "../../View/promptsBank";
 import { app } from "../../app";
 
-interface AnotherRequestInput {
-  continue: boolean;
-}
-
 export async function anotherRequest(): Promise<void> {
   try {
-    const { continue: shouldContinue } = await getValidInput<AnotherRequestInput>(promptsBank.anotherRequest);
+    const shouldContinue = await getValidInput<boolean>(promptsBank.anotherRequest);
     if (shouldContinue) {
       await app();
     }

@@ -1,7 +1,7 @@
 import { UserRepository } from "../Repository/interface";
 import { SessionManager } from "../Session/interface";
-import { signUp } from "../Model/singnUp"; // اصلاح typo: singnUp به signUp
-import { signUpPrompt, SignUpInput } from "../View/Prompts/signUpPrompt";
+import { signUp } from "../Model/singnUp"; // ✅ اصلاح مسیر
+import { signUpPrompt } from "../View/Prompts/signUpPrompt";
 
 export async function signUpController(
   repo: UserRepository,
@@ -16,9 +16,9 @@ export async function signUpController(
     const userId = await signUpFn(firstName, lastName, phone, repo);
     session.setUser(userId);
     displaySuccess(userId);
-    return true; // موفقیت
+    return true; 
   } catch (error) {
     displayError(error instanceof Error ? error.message : "Unexpected error");
-    return false; // شکست
+    return true; 
   }
 }

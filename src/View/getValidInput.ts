@@ -4,7 +4,6 @@ export async function getValidInput<T>(prompt: DistinctQuestion[],validate?: (va
   while (true) {
     const answer = await inquirer.prompt(prompt);
     const val = Object.values(answer)[0] as T;
-
     if (!validate) return val; 
     const result = validate(val);
     if (result === true) return val;

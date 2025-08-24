@@ -12,17 +12,13 @@ import { balanceInquiryController } from "../../Controller/balanceInquiryControl
 import { deleteAccountController } from "../../Controller/deleteAccountController";
 import { exitController } from "../../Controller/exitController";
 
-interface MainMenuInput {
-  action: Action;
-}
-
-export async function mainMenu(): Promise<boolean> {
+export async function mainMenu(): Promise<void> {
   const repo = sqliteUserRepository;
   const session = memorySessionManager;
 
   const actionMap: Record<Action, () => Promise<boolean | void>> = {
     [Action.SignUp]: () => signUpController(repo, session),
-    [Action.Login]: () => loginController(repo, session),
+    [Action.Login]: () => loginController(repo, session), 
     [Action.OpenAccount]: () => openAccountController(repo, session),
     [Action.Deposit]: () => depositController(repo, session),
     [Action.Withdraw]: () => withdrawController(repo, session),
@@ -30,22 +26,25 @@ export async function mainMenu(): Promise<boolean> {
     [Action.DeleteAccount]: async () => {
       const deleted = await deleteAccountController(repo, session);
       if (deleted) session.clearUser();
-      return deleted;
+      return true;
     },
     [Action.Exit]: () => exitController(repo, session),
   };
 
-  try {
-    const { action } = await getValidInput<MainMenuInput>(promptsBank.mainMenu);
-    const handler = actionMap[action];
-    if (handler) {
+  while (true) {
+    try {
+      const action = await getValidInput<Action>(promptsBank.mainMenu);
+      const handler = actionMap[action];
+      if (!handler) {
+        console.log("Invalid action selected.");
+        continue;
+      }
       const result = await handler();
-      return result === true;
+      if (result === false) {
+        break;
+      }
+    } catch (error) {
+      console.error("An error occurred:", error instanceof Error ? error.message : "Unexpected error");
     }
-    console.log("Invalid action selected.");
-    return true;
-  } catch (error) {
-    console.error("An error occurred:", error instanceof Error ? error.message : "Unexpected error");
-    return true;
   }
 }
