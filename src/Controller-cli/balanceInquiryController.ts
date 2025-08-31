@@ -4,18 +4,12 @@ import { validateUser } from "../Validation/Lojic-Validation/validateUser";
 import { balanceInquiryView } from "../View/Prompts/balanceInquiryView";
 import { balanceInquiry } from "../Model/balanceInquiry";
 
-export async function balanceInquiryController(
-  repo: UserRepository,
-  session: SessionManager,
-  validateFn = validateUser,
-  displayFn = balanceInquiryView,
-  displayError = (msg: string) => console.error(`Error: ${msg}`)
-): Promise<void> {
+export async function balanceInquiryController(repo: UserRepository,session: SessionManager): Promise<void> {
   try {
-    const userId = await validateFn(repo, session);
+    const userId = await validateUser(repo, session);
     const balance = await balanceInquiry(userId, repo);
-    displayFn(balance);
+    balanceInquiryView(balance);
   } catch (error) {
-    displayError(error instanceof Error ? error.message : "Unexpected error");
+    console.error(error instanceof Error ? error.message : "Unexpected error");
   }
 }

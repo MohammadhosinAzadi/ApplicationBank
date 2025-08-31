@@ -1,5 +1,5 @@
 import { DistinctQuestion } from "inquirer";
-import { Action } from "../View/MainMenu/actions.enum";
+import { newAction } from "../View/MainMenu/newAction";
 
 export const promptsBank: Record<string, DistinctQuestion[]> = {
     mainMenu: [
@@ -7,7 +7,7 @@ export const promptsBank: Record<string, DistinctQuestion[]> = {
           type: "list" as const,
           name: "action",
           message: "Welcome, please select an option:",
-          choices: Object.values(Action) as string[],
+          choices: Object.values(newAction).map(a => a.message),
         },
       ],
 

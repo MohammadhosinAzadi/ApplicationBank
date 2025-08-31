@@ -5,26 +5,19 @@ import { UserRepository } from "../Repository/interface";
 import { SessionManager } from "../Session/interface";
 import { validateUser } from "../Validation/Lojic-Validation/validateUser";
 
-export async function deleteAccountController(
-  repo: UserRepository,
-  session: SessionManager,
-  promptFn = deleteAccountPrompt,
-  deleteFn = deleteAccount,
-  displayFn = deleteAccountView,
-  displayError = (msg: string) => console.error(`Error: ${msg}`)
-): Promise<boolean> {
+export async function deleteAccountController(repo: UserRepository,session: SessionManager): Promise<boolean> {
   try {
     const userId = await validateUser(repo, session);
-    const { confirm } = await promptFn();
+    const { confirm } = await deleteAccountPrompt();
     if (!confirm) {
       console.log("Account deletion cancelled.");
       return false;
     }
-    await deleteFn(userId, repo);
-    displayFn();
+    await deleteAccount(userId, repo);
+    deleteAccountView();
     return true;
   } catch (error) {
-    displayError(error instanceof Error ? error.message : "Unexpected error");
+    console.error(error instanceof Error ? error.message : "Unexpected error");
     return false;
   }
 }

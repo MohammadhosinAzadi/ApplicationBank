@@ -1,8 +1,15 @@
-import { setupDatabase } from "./Database/databaseSetup"
 import { app } from "./app";
-import { db } from "./Database/databaseSetup"
+import { setupDatabase } from "./Database/index"
 
-db.serialize(() => {
-  setupDatabase();
-  app();
-});
+const initializeApp = async() : Promise<void> => {
+  try {
+    await setupDatabase();
+    await app();
+    console.log("Application and database initialized successfully.");
+  } catch (err : any) {
+    console.error(`Failed to initialize application: ${err.message}`);
+    process.exit(1);
+  }
+}
+
+initializeApp()

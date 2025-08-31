@@ -1,4 +1,4 @@
-import { db } from "../Database/databaseSetup";
+import { db } from "../Database/index";
 import { UserRepository } from "../Repository/interface";
 
 export const sqliteUserRepository: UserRepository = {
