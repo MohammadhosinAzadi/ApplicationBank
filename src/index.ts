@@ -1,15 +1,19 @@
-import { app } from "./app";
-import { setupDatabase } from "./Database/index"
+import { createApp } from "./app-server";
+import { dbPromise } from "./Database/index";
 
-const initializeApp = async() : Promise<void> => {
+const PORT = process.env.PORT || 3000;
+
+async function startApp() {
   try {
-    await setupDatabase();
-    await app();
-    console.log("Application and database initialized successfully.");
-  } catch (err : any) {
-    console.error(`Failed to initialize application: ${err.message}`);
+    await dbPromise;
+    const app = await createApp();
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at http://localhost:${PORT}`);
+    });
+  } catch (err: any) {
+    console.error(`❌ Failed to start server: ${err.message}`);
     process.exit(1);
   }
 }
 
-initializeApp()
+startApp();
