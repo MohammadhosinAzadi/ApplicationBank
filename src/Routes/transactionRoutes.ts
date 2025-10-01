@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { depositHttp, withdrawHttp } from "../Controller-http/transactionHttpController";
+import { depositController } from "../Controller/depositController"
+import { withdrawController } from "../Controller/withdrawController"
 
-const router = Router();
+const routes = Router();
 
-router.post("/:userId/deposit", depositHttp);
-router.post("/:userId/withdraw", withdrawHttp);
+routes.post("/deposit", depositController);
+routes.post("/:userId/withdraw", withdrawController);
 
-export default router;
+export default routes;

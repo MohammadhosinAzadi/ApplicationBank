@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { openAccountHttp, deleteAccountHttp, balanceInquiryHttp } from "../Controller-http/accountHttpController";
+import { deleteAccountController } from "../Controller/deleteAccountController"
+import { balanceInquiryController } from "../Controller/balanceInquiryController"
+import { openAccountController } from "../Controller/openAccountController"
 
 const router = Router();
 
-router.post("/open", openAccountHttp);
-router.delete("/:userId", deleteAccountHttp);
-router.get("/:userId/balance", balanceInquiryHttp);
+router.post("/open/:userId", openAccountController);
+router.delete("/:userId", deleteAccountController);
+router.get("/:userId/balance", balanceInquiryController);
 
 export default router;

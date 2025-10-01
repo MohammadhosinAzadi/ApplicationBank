@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up & Open Account</title>
+</head>
+<body>
+  <h1>Sign Up & Open Account</h1>
+
+  <form id="signup-form">
+    <label>
+      First Name:
+      <input type="text" id="firstName" required />
+    </label>
+    <br /><br />
+
+    <label>
+      Last Name:
+      <input type="text" id="lastName" required />
+    </label>
+    <br /><br />
+
+    <label>
+      Phone:
+      <input type="text" id="phone" required />
+    </label>
+    <br /><br />
+
+    <label>
+      Initial Deposit (min: 5000):
+      <input type="number" id="initialDeposit" required min="5000" />
+    </label>
+    <br /><br />
+
+    <button type="submit">Sign Up & Open Account</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script src="/signup.js"></script>
+</body>
+</html>
+
