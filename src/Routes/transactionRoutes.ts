@@ -4,7 +4,7 @@ import { withdrawController } from "../Controller/withdrawController"
 
 const routes = Router();
 
-routes.post("/deposit", depositController);
+routes.post("/:userId/deposit", depositController);
 routes.post("/:userId/withdraw", withdrawController);
 
 export default routes;

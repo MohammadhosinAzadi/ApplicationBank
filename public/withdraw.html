@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Withdraw</title>
+</head>
+<body>
+  <h1>Withdraw</h1>
+
+  <form id="withdraw-form">
+    <label>
+      User ID:
+      <input type="number" id="userId" required min="1" />
+    </label>
+    <br /><br />
+
+    <label>
+      Amount:
+      <input type="number" id="amount" required min="1000" />
+    </label>
+    <br /><br />
+
+    <button type="submit">Withdraw</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script src="./withdraw.js"></script>
+</body>
+</html>

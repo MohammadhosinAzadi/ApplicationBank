@@ -12,4 +12,7 @@ async function startApp() {
 
 }
 
-startApp().catch(console.error);
+startApp().catch((err) => {
+  throw new Error(`App failed to start: ${err.message}`);
+  
+});

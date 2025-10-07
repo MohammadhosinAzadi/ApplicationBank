@@ -4,7 +4,7 @@ import userRoutes from "./Routes/userRoutes";
 import accountRoutes from "./Routes/accountRoutes";
 import transactionRoutes from "./Routes/transactionRoutes";
 
-export const createApp = async (): Promise<Application> => {
+export const createApp = (): Application => {
   const app: Application = express();
 
   app.use(express.json());

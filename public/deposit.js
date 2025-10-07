@@ -8,7 +8,7 @@ form.addEventListener("submit", async (e) => {
   const amount = document.getElementById("amount").value;
 
   try {
-    const res = await fetch("/users/deposit", {
+    const res = await fetch("/transactions/deposit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ phone, amount }),
