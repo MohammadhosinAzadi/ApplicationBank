@@ -10,7 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "types": ["node"],
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   },
-  "include": ["src", "public/signup.js"]
+  "include": ["src/**/*"]
 }
