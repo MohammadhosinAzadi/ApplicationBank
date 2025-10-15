@@ -1,4 +1,4 @@
-import { Database } from 'sqlite3';
+import { Database } from "sqlite3";
 
 export const setupTables = (db: Database): Promise<void> =>
   new Promise((resolve, reject) => {
@@ -10,6 +10,7 @@ export const setupTables = (db: Database): Promise<void> =>
           firstName TEXT NOT NULL,
           lastName TEXT NOT NULL,
           phone TEXT UNIQUE NOT NULL,
+          password TEXT NOT NULL,
           balance REAL NOT NULL DEFAULT 0
         )
         `,
@@ -24,4 +25,4 @@ export const setupTables = (db: Database): Promise<void> =>
         }
       );
     });
-});
+  });

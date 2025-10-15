@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import { getBalance } from "../Service/getBalance";
+import { sendSuccess, sendError } from "../Controller/Response/response";
+import { HttpStatus } from "../Controller/Response/httpStatus";
 
 export async function balanceInquiryController(req: Request, res: Response) {
   try {
 
     const userId = parseInt(req.params.userId);
-
     const balance = await getBalance(userId);
+    sendSuccess(res, HttpStatus.OK, "Balance retrieved successfully", {balance})
 
-    res.json({ balance });
-    
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    sendError(res, HttpStatus.BAD_REQUEST, err.message)
   }
 }

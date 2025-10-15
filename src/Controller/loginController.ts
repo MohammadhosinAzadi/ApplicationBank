@@ -1,17 +1,14 @@
-// import { Request, Response } from "express";
-// import { sqliteUserRepository } from "../Repository/sqliteUserRepository";
-// import { validateExistingPhone } from "../Validation/Lojic-Validation/validateExistingPhone"
+import { loginUser } from "../Service/loginUser";
+import { Request, Response } from "express";
+import { sendSuccess, sendError } from "./Response/response";
+import { HttpStatus } from "../Controller/Response/httpStatus";
 
-// export async function loginController(req: Request, res: Response) {
-//     try {
-//       const { phone } = req.body;
-  
-//       const userId = await sqliteUserRepository.getUserIdByPhone(phone);
-//       await validateExistingPhone(userId)
-  
-//       res.json({ message: "Login successful", userId });
-
-//     } catch (err: any) {
-//       res.status(400).json({ error: err.message });
-//     }
-//   }
+export async function loginController(req: Request, res: Response) {
+  try {
+    const { phone, password } = req.body
+    const userData = await loginUser(phone, password)
+    sendSuccess(res, HttpStatus.OK, "Login successful", userData);
+  } catch (error : any) {
+    sendError(res, HttpStatus.UNAUTHORIZED, error.message);
+  }
+}

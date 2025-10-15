@@ -2,11 +2,11 @@ import { dbPromise } from "../Database/index";
 import { UserRepository } from "../Repository/interface";
 
 export const sqliteUserRepository: UserRepository = {
-  createUser: async (firstName, lastName, phone, initialDeposit) => {
-    const db = await dbPromise; 
+  createUser: async (firstName, lastName, phone, hashedPassword, initialDeposit) => {
+    const db = await dbPromise;
     return new Promise((resolve, reject) => {
-      const sql = `INSERT INTO accounts (firstName, lastName, phone, balance) VALUES (?, ?, ?, ?)`;
-      db.run(sql, [firstName, lastName, phone, initialDeposit], function (err) {
+      const sql = `INSERT INTO accounts (firstName, lastName, phone, password, balance)VALUES (?, ?, ?, ?, ?)`;
+      db.run(sql, [firstName, lastName, phone, hashedPassword, initialDeposit], function (err) {
         err ? reject(err) : resolve(this.lastID);
       });
     });

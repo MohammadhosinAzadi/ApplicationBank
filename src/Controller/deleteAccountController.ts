@@ -1,14 +1,16 @@
 import { Request, Response } from "express";
 import { deleteAccount } from "../Service/deleteAccount";
+import { sendSuccess, sendError } from "../Controller/Response/response";
+import { HttpStatus } from "../Controller/Response/httpStatus";
 
 export async function deleteAccountController(req: Request, res: Response) {
   try {
+
     const userId = parseInt(req.params.userId);
-
     await deleteAccount(userId);
+    sendSuccess(res, HttpStatus.OK, "Account deleted")
 
-    res.json({ message: "Account deleted" });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    sendError(res, HttpStatus.BAD_REQUEST, err.message)
   }
 }
