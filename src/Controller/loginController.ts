@@ -9,8 +9,9 @@ export async function loginController(req: Request, res: Response) {
     const userData = await loginUser(phone, password)
     res.cookie("token", userData.token, {
       httpOnly: true,  
-      secure: false,  
-      maxAge: 3600000,  
+      secure: false,       
+      sameSite: "lax",      
+      maxAge: 1000 * 60 * 60,  
     });
     sendSuccess(res, HttpStatus.OK, "Login successful", {
       id: userData.id,

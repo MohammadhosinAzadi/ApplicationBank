@@ -18,3 +18,4 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
         return sendError(res, HttpStatus.FORBIDDEN, "Invalid token");
     }
 }
+

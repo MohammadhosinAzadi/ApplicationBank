@@ -1,10 +1,8 @@
 import express, { Application } from "express";
 import path from "path";
 import cookieParser from "cookie-parser"; 
-import userRoutes from "./Routes/userRoutes";
-import accountRoutes from "./Routes/accountRoutes";
-import transactionRoutes from "./Routes/transactionRoutes";
 import cors from "cors";
+import { Routers } from "./Routes/index"
 
 export const createApp = (): Application => {
   const app: Application = express();
@@ -19,9 +17,9 @@ export const createApp = (): Application => {
   app.use(cookieParser()); 
   app.use(express.static(path.join(process.cwd(), "public")));
 
-  app.use("/users", userRoutes);
-  app.use("/accounts", accountRoutes);
-  app.use("/transactions", transactionRoutes);
-
+  for (const { path, router } of Routers) {
+    app.use(path, router);
+  }
+  
   return app;
 };
